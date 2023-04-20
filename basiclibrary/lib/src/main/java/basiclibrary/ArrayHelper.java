@@ -1,49 +1,97 @@
-package basiclibrary;
+package com.example;
 
-import java.util.Set;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class ArrayHelper {
 
-    public static boolean containsDuplicates(int[] arr) {
-        Set<Integer> uniqueNumbers = new HashSet<>();
-
-        for (int number : arr) {
-            if (uniqueNumbers.contains(number)) {
-                return true;
-            }
-            uniqueNumbers.add(number);
+    public static int[] roll(int n) {
+        int[] rolls = new int[n];
+        for (int i = 0; i < n; i++) {
+            rolls[i] = (int) (Math.random() * 6) + 1;
         }
+        return rolls;
+    }
 
+    public static boolean containsDuplicates(int[] arr) {
+        Set<Integer> numbers = new HashSet<>();
+        for (int num : arr) {
+            if (numbers.contains(num)) {
+                return true;
+            } else {
+                numbers.add(num);
+            }
+        }
         return false;
     }
 
     public static double calculateAverage(int[] arr) {
-        int sum = 0;
-
-        for (int number : arr) {
-            sum += number;
+        double sum = 0;
+        for (int num : arr) {
+            sum += num;
         }
-
-        return (double) sum / arr.length;
+        return sum / arr.length;
     }
 
-    public static int[] findSubArrayWithLowestAverage(int[][] arr) {
-        int indexWithLowestAverage = 0;
-        double lowestAverage = calculateAverage(arr[0]);
+    public static int[] findSubArrayWithLowestAverage(int[][] arrays) {
+        int[] lowestAverageArray = null;
+        double lowestAverage = Double.MAX_VALUE;
 
-        for (int i = 1; i < arr.length; i++) {
-            double currentAverage = calculateAverage(arr[i]);
+        for (int[] array : arrays) {
+            double currentAverage = calculateAverage(array);
             if (currentAverage < lowestAverage) {
                 lowestAverage = currentAverage;
-                indexWithLowestAverage = i;
+                lowestAverageArray = array;
             }
         }
 
-        return arr[indexWithLowestAverage];
+        return lowestAverageArray;
     }
 
-    public static int[] findArrayWithLowestAverage(int[][] arr) {
-        return new int[0];
+    public static String tally(List<String> votes) {
+        Map<String, Integer> voteCounts = new HashMap<>();
+        String winner = null;
+        int maxVotes = 0;
+
+        for (String vote : votes) {
+            int currentVotes = voteCounts.getOrDefault(vote, 0) + 1;
+            voteCounts.put(vote, currentVotes);
+
+            if (currentVotes > maxVotes) {
+                winner = vote;
+                maxVotes = currentVotes;
+            }
+        }
+
+        return winner;
+    }
+
+    public static String analyzeWeatherData(int[][] weeklyMonthTemperatures) {
+        int minTemp = Integer.MAX_VALUE;
+        int maxTemp = Integer.MIN_VALUE;
+        Set<Integer> uniqueTemps = new HashSet<>();
+
+        for (int[] week : weeklyMonthTemperatures) {
+            for (int temp : week) {
+                minTemp = Math.min(minTemp, temp);
+                maxTemp = Math.max(maxTemp, temp);
+                uniqueTemps.add(temp);
+            }
+        }
+
+        StringBuilder result = new StringBuilder();
+        result.append("High: ").append(maxTemp).append("\n");
+        result.append("Low: ").append(minTemp).append("\n");
+
+        for (int i = minTemp; i <= maxTemp; i++) {
+            if (!uniqueTemps.contains(i)) {
+                result.append("Never saw temperature: ").append(i).append("\n");
+            }
+        }
+
+        return result.toString();
     }
 }
