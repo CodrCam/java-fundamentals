@@ -4,12 +4,16 @@ Create a set of classes to represent Restaurants, Reviews, Users, and Chain Rest
 
 ## Whiteboard Process
 
-![wb46](/lib/src/main/resources/IMG_0576.JPG)
+![IMG_0576.JPG](lib%2Fsrc%2Fmain%2Fresources%2FIMG_0576.JPG)
+
+![wbLab7_1.jpg](lib%2Fsrc%2Fmain%2Fresources%2FwbLab7_1.jpg))
 
 ## Approach & Efficiency
 
 O(n) where n is the number of reviews for a specific restaurant
 
+O(1) when a movie is added or removed.
+
 ## Solution
 
-Run `Main` to check tests
+Run `TestUtils` to check tests
