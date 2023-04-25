@@ -1,26 +1,41 @@
 package main.java.inheritance;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.Collections;
 
-public class Restaurant implements Reviewable {
+public class Theater implements Reviewable {
     private String name;
-    private int stars;
-    private String price;
+    private Set<String> movies;
     private List<Review> reviews;
+    private int stars;
 
-    public Restaurant(String name, int stars, String priceCategory) {
+    public Theater(String name) {
         this.name = name;
-        this.stars = Math.min(Math.max(stars, 0), 5);
-        this.price = price;
+        this.movies = new HashSet<>();
         this.reviews = new ArrayList<>();
+        this.stars = 0;
     }
 
     public String getName() {
         return name;
     }
 
+    public void addMovie(String movie) {
+        movies.add(movie);
+    }
+
+    public Set<String> getMovies() {
+        return movies;
+    }
+
+    public void removeMovie(String movie) {
+        movies.remove(movie);
+    }
+
+    @Override
     public void addReview(Review review) {
         if (review.getSubject() != this && !reviews.contains(review) && review.getAuthor().addReview(review)) {
             reviews.add(review);
@@ -29,6 +44,7 @@ public class Restaurant implements Reviewable {
         }
     }
 
+    @Override
     public void updateStars(int newStars) {
         int totalStars = 0;
         for (Review review : reviews) {
@@ -45,14 +61,12 @@ public class Restaurant implements Reviewable {
         return Collections.unmodifiableList(reviews);
     }
 
-
-
     @Override
     public String toString() {
-        return "Restaurant{" +
+        return "Theater{" +
                 "name='" + name + '\'' +
                 ", stars=" + stars +
-                ", price='" + price + '\'' +
+                ", movies=" + movies +
                 '}';
     }
 }

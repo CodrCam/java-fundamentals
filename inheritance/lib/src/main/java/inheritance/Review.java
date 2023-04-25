@@ -4,29 +4,57 @@ public class Review {
     private String body;
     private User author;
     private int stars;
+    private Object subject;
+    private String movie;
     private Restaurant restaurant;
 
     public Review(String body, User author, int stars) {
         this.body = body;
         this.author = author;
         this.stars = Math.min(Math.max(stars, 0), 5);
-        this.restaurant = null;
+        this.subject = null;
+        this.movie = null;
     }
 
-    public void setRestaurant(Restaurant restaurant) {
-        this.restaurant = restaurant;
+    public Review(String body, User author, int stars, String movie) {
+        this(body, author, stars);
+        this.movie = movie;
     }
 
-    public Restaurant getRestaurant() {
-        return restaurant;
+    public void setSubject(Object subject) {
+        this.subject = subject;
+    }
+
+    public Object getSubject() {
+        return subject;
+    }
+
+    public User getAuthor() {
+        return author;
     }
 
     public void setAuthor(User author) {
         this.author = author;
     }
 
-    public User getAuthor() {
-        return author;
+    public int getStars() {
+        return stars;
+    }
+
+    public String getMovie() {
+        return movie;
+    }
+
+    public void setMovie(String movie) {
+        this.movie = movie;
+    }
+
+    public String getBody() {
+        return body;
+    }
+
+    public void setBody(String body) {
+        this.body = body;
     }
 
     public void updateStars(int newStars) {
@@ -37,17 +65,17 @@ public class Review {
         }
     }
 
-    public int getStars() {
-        return stars;
-    }
+
+    // Other getter and setter methods
 
     @Override
     public String toString() {
+        String movieInfo = movie == null ? "" : ", movie='" + movie + '\'';
         return "Review{" +
                 "body='" + body + '\'' +
-                ", author='" + author.getName() + '\'' +
+                ", author=" + author.getName() +
                 ", stars=" + stars +
-                ", restaurant=" + (restaurant == null ? "null" : restaurant.getName()) +
+                movieInfo +
                 '}';
     }
 }
